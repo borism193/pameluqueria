@@ -1,0 +1,183 @@
+---
+import { siteData } from '../data/siteData';
+
+const galleryCategories = ['Todos', 'Coloración', 'Cortes', 'Peinados', 'Tratamientos'];
+---
+
+<section id="galeria" class="py-20 md:py-28 bg-cream-soft/60 border-t border-gold/15">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto space-y-3">
+      <span class="text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold">
+        Portfolio de Trabajos Reales
+      </span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-charcoal font-medium">
+        Galería & Transformaciones
+      </h2>
+      <p class="text-charcoal-muted text-sm sm:text-base font-light">
+        Deslizá el comparador para descubrir el antes y después de nuestros trabajos de coloración y diseño.
+      </p>
+    </div>
+
+    <!-- Interactive Before & After Comparators -->
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+      {siteData.beforeAfter.map((item) => (
+        <div class="bg-cream rounded-3xl p-4 sm:p-6 shadow-soft border border-gold/25 space-y-4">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/3] select-none ba-container">
+            <!-- After Image (Full background) -->
+            <img
+              src={item.afterImage}
+              alt={`Después - ${item.title}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+
+            <!-- Before Image (Clipped overlay) -->
+            <div
+              class="ba-before-layer absolute inset-0 overflow-hidden"
+              style="clip-path: inset(0 50% 0 0);"
+            >
+              <img
+                src={item.beforeImage}
+                alt={`Antes - ${item.title}`}
+                class="w-full h-full object-cover filter saturate-75 brightness-95"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Labels -->
+            <span class="absolute top-3 left-3 bg-charcoal/80 backdrop-blur-sm text-cream text-[11px] uppercase tracking-widest px-3 py-1 rounded-full font-medium pointer-events-none">
+              Antes
+            </span>
+            <span class="absolute top-3 right-3 bg-gold/90 backdrop-blur-sm text-cream text-[11px] uppercase tracking-widest px-3 py-1 rounded-full font-medium pointer-events-none">
+              Después
+            </span>
+
+            <!-- Divider Line -->
+            <div
+              class="ba-divider absolute top-0 bottom-0 w-0.5 bg-cream shadow-[0_0_12px_rgba(0,0,0,0.5)] pointer-events-none"
+              style="left: 50%;"
+            >
+              <div class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-cream text-charcoal shadow-md border border-gold flex items-center justify-center text-xs font-bold">
+                ↔
+              </div>
+            </div>
+
+            <!-- Range Input Control -->
+            <input
+              type="range"
+              min="5"
+              max="95"
+              value="50"
+              aria-label={`Comparar antes y después de ${item.title}`}
+              class="ba-slider absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-10"
+            />
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold text-charcoal">{item.title}</h3>
+              <p class="text-xs sm:text-sm text-charcoal-muted">{item.technique}</p>
+            </div>
+            <span class="text-xs font-medium text-gold-dark bg-blush-light/70 px-3 py-1.5 rounded-full border border-gold/25 self-start sm:self-auto">
+              ⏱ {item.duration}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Gallery Filter Buttons -->
+    <div class="mt-16 flex flex-wrap items-center justify-center gap-2">
+      {galleryCategories.map((cat, idx) => (
+        <button
+          type="button"
+          data-gal-filter={cat}
+          class:list={[
+            'gal-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all border',
+            idx === 0
+              ? 'bg-charcoal text-cream border-charcoal'
+              : 'bg-cream text-charcoal-muted border-gold/30 hover:text-charcoal',
+          ]}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Gallery Cards Grid -->
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {siteData.gallery.map((work) => (
+        <article
+          data-gal-category={work.category}
+          class="gal-card group bg-cream rounded-3xl overflow-hidden shadow-soft border border-gold/20 flex flex-col"
+        >
+          <div class="relative aspect-[4/4] overflow-hidden bg-cream-warm">
+            <img
+              src={work.image}
+              alt={work.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 bg-cream/90 backdrop-blur-sm text-charcoal text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full border border-gold/30">
+              {work.category}
+            </span>
+            {work.badge && (
+              <span class="absolute top-3 right-3 bg-gold text-cream text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
+                {work.badge}
+              </span>
+            )}
+          </div>
+          <div class="p-5 space-y-1.5">
+            <h3 class="font-serif text-2xl font-semibold text-charcoal">{work.title}</h3>
+            <p class="text-sm text-charcoal-muted font-light">{work.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Before & After interactive sliders
+  const containers = document.querySelectorAll('.ba-container');
+  containers.forEach((container) => {
+    const slider = container.querySelector<HTMLInputElement>('.ba-slider');
+    const beforeLayer = container.querySelector<HTMLElement>('.ba-before-layer');
+    const divider = container.querySelector<HTMLElement>('.ba-divider');
+
+    slider?.addEventListener('input', () => {
+      const val = slider.value;
+      if (beforeLayer && divider) {
+        beforeLayer.style.clipPath = `inset(0 ${100 - Number(val)}% 0 0)`;
+        divider.style.left = `${val}%`;
+      }
+    });
+  });
+
+  // Gallery category filter
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.gal-filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.gal-card');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-gal-filter');
+
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-charcoal', 'text-cream', 'border-charcoal');
+        b.classList.add('bg-cream', 'text-charcoal-muted', 'border-gold/30');
+      });
+      btn.classList.add('bg-charcoal', 'text-cream', 'border-charcoal');
+      btn.classList.remove('bg-cream', 'text-charcoal-muted', 'border-gold/30');
+
+      cards.forEach((card) => {
+        const cardCat = card.getAttribute('data-gal-category');
+        if (cat === 'Todos' || cat === cardCat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

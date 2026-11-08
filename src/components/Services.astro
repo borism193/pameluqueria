@@ -1,0 +1,157 @@
+---
+import { siteData, getWhatsAppLink } from '../data/siteData';
+---
+
+<section id="servicios" class="py-20 md:py-28 bg-cream-soft/70 border-y border-gold/15">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto space-y-3">
+      <span class="text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold">
+        Menú de Experiencias
+      </span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-charcoal font-medium">
+        Servicios & Lista de Precios
+      </h2>
+      <p class="text-charcoal-muted text-sm sm:text-base font-light">
+        Seleccioná una categoría o tocá en <strong class="font-medium text-charcoal">Reservar</strong> sobre cualquier servicio para consultar disponibilidad directa por WhatsApp.
+      </p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3" role="tablist">
+      <button
+        type="button"
+        data-category="all"
+        class="service-tab active-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all border border-gold/40 bg-charcoal text-cream shadow-sm"
+      >
+        Todos los servicios
+      </button>
+      {siteData.serviceCategories.map((cat) => (
+        <button
+          type="button"
+          data-category={cat.id}
+          class="service-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all border border-gold/30 bg-cream text-charcoal-muted hover:text-charcoal hover:border-gold"
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Categories & Items Grid -->
+    <div class="mt-12 space-y-12">
+      {siteData.serviceCategories.map((category) => (
+        <div
+          data-category-panel={category.id}
+          class="service-panel bg-cream rounded-3xl p-6 sm:p-10 shadow-soft border border-gold/20 transition-all duration-300"
+        >
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gold/20 pb-5 mb-6 gap-2">
+            <div>
+              <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-charcoal">
+                {category.label}
+              </h3>
+              <p class="text-xs sm:text-sm text-charcoal-muted mt-1">{category.subtitle}</p>
+            </div>
+            <span class="text-xs uppercase tracking-widest text-gold-dark font-medium">
+              Valores expresados en ARS
+            </span>
+          </div>
+
+          <div class="divide-y divide-cream-warm">
+            {category.items.map((item) => {
+              const waMessage = `¡Hola Pame! Me gustaría reservar un turno para el servicio: *${item.name}* (${item.price}). ¿Qué horarios tenés disponibles?`;
+              return (
+                <div class="py-5 first:pt-2 last:pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+                  <div class="space-y-1.5 pr-4">
+                    <div class="flex flex-wrap items-center gap-2.5">
+                      <h4 class="font-serif text-xl sm:text-2xl font-medium text-charcoal group-hover:text-gold-dark transition-colors">
+                        {item.name}
+                      </h4>
+                      {item.popular && (
+                        <span class="px-2.5 py-0.5 text-[11px] uppercase tracking-wider font-semibold rounded-full bg-blush-light text-gold-dark border border-gold/30">
+                          ★ Más elegido
+                        </span>
+                      )}
+                    </div>
+                    <p class="text-sm text-charcoal-muted font-light leading-relaxed max-w-2xl">
+                      {item.description}
+                    </p>
+                    <div class="inline-flex items-center gap-1.5 text-xs text-charcoal-light pt-0.5">
+                      <svg class="w-3.5 h-3.5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Duración estimada: {item.duration}</span>
+                    </div>
+                  </div>
+
+                  <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-cream-warm">
+                    <span class="font-serif text-2xl sm:text-3xl font-semibold text-charcoal">
+                      {item.price}
+                    </span>
+                    <a
+                      href={getWhatsAppLink(waMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-gold-dark hover:text-cream bg-blush-light/70 hover:bg-charcoal px-4 py-2 rounded-full border border-gold/30 transition-all"
+                    >
+                      <span>Reservar</span>
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Note box -->
+    <div class="mt-10 bg-blush-light/60 border border-gold/30 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="space-y-1">
+        <p class="text-sm font-semibold text-charcoal">
+          ¿Tenés dudas sobre qué servicio elegir para tu tipo de cabello?
+        </p>
+        <p class="text-xs sm:text-sm text-charcoal-muted font-light">
+          Enviame una foto de tu pelo actual con luz natural por WhatsApp y te asesoro sin cargo antes de agendar.
+        </p>
+      </div>
+      <a
+        href={getWhatsAppLink('¡Hola Pame! Quiero enviarte una foto de mi pelo para que me asesores qué servicio me conviene realizarme ✨')}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shrink-0 inline-flex items-center gap-2 bg-charcoal hover:bg-gold-dark text-cream text-xs uppercase tracking-widest font-semibold px-6 py-3.5 rounded-full transition-colors"
+      >
+        <span>Pedir Diagnóstico por WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.service-tab');
+  const panels = document.querySelectorAll<HTMLElement>('.service-panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const selected = tab.getAttribute('data-category');
+
+      tabs.forEach((t) => {
+        t.classList.remove('bg-charcoal', 'text-cream', 'shadow-sm');
+        t.classList.add('bg-cream', 'text-charcoal-muted');
+      });
+      tab.classList.add('bg-charcoal', 'text-cream', 'shadow-sm');
+      tab.classList.remove('bg-cream', 'text-charcoal-muted');
+
+      panels.forEach((panel) => {
+        const panelCat = panel.getAttribute('data-category-panel');
+        if (selected === 'all' || selected === panelCat) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

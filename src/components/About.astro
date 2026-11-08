@@ -1,0 +1,69 @@
+---
+import { siteData } from '../data/siteData';
+---
+
+<section id="sobre-pamela" class="py-20 md:py-28 bg-cream relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <!-- Left Column: Dual Editorial Collage -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative max-w-md mx-auto">
+          <div class="rounded-3xl overflow-hidden shadow-soft border border-gold/25 aspect-[4/5]">
+            <img
+              src={siteData.about.imageMain}
+              alt="Pamela trabajando en el estudio Pameluquería"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Secondary overlapping image -->
+          <div class="hidden sm:block absolute -bottom-8 -right-8 w-48 h-56 rounded-2xl overflow-hidden shadow-soft border-4 border-cream">
+            <img
+              src={siteData.about.imageSecondary}
+              alt="Detalle de herramientas y cuidado capilar"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Signature Badge -->
+          <div class="mt-4 sm:mt-0 sm:absolute -top-6 -left-6 bg-charcoal text-cream px-5 py-4 rounded-2xl shadow-soft border border-gold/40">
+            <p class="font-serif italic text-xl text-gold-light">“Tu pelo es tu corona”</p>
+            <p class="text-[11px] uppercase tracking-widest text-cream/80 mt-0.5">— Pamela, Fundadora</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Story & Philosophy -->
+      <div class="lg:col-span-7 space-y-6">
+        <span class="text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold">
+          {siteData.about.subtitle}
+        </span>
+
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal font-medium leading-tight">
+          {siteData.about.title}
+        </h2>
+
+        <div class="space-y-4 text-charcoal-muted text-base leading-relaxed font-light">
+          {siteData.about.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <!-- 3 Pillars -->
+        <div class="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {siteData.about.highlights.map((item, idx) => (
+            <div class="bg-cream-soft/80 border border-gold/20 rounded-2xl p-5 space-y-2">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blush-light text-gold-dark font-serif font-semibold text-sm border border-gold/30">
+                0{idx + 1}
+              </span>
+              <h3 class="font-serif text-xl font-semibold text-charcoal">{item.title}</h3>
+              <p class="text-xs text-charcoal-muted leading-relaxed">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

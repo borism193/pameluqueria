@@ -1,0 +1,191 @@
+---
+import { siteData } from '../data/siteData';
+
+const allServiceNames = siteData.serviceCategories.flatMap((cat) =>
+  cat.items.map((item) => `${item.name} (${item.price})`)
+);
+---
+
+<section id="contacto" class="py-20 md:py-28 bg-cream relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Quick WhatsApp Booking Assistant -->
+      <div class="lg:col-span-6 bg-cream-soft rounded-3xl p-6 sm:p-10 shadow-soft border border-gold/25 space-y-6">
+        <div class="space-y-2">
+          <span class="text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold">
+            Turnos por WhatsApp
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl text-charcoal font-medium">
+            Reservá tu momento en Pameluquería
+          </h2>
+          <p class="text-sm text-charcoal-muted font-light">
+            Completá estos datos rápidos para armar tu mensaje y te responderemos a la brevedad con los horarios disponibles.
+          </p>
+        </div>
+
+        <form id="wa-booking-form" class="space-y-4">
+          <div>
+            <label for="client-name" class="block text-xs uppercase tracking-wider text-charcoal-muted font-semibold mb-1.5">
+              Tu Nombre
+            </label>
+            <input
+              type="text"
+              id="client-name"
+              placeholder="Ej: Sofía"
+              class="w-full rounded-xl bg-cream border border-gold/30 px-4 py-3 text-sm text-charcoal placeholder:text-charcoal-light focus:outline-none focus:border-gold-dark"
+            />
+          </div>
+
+          <div>
+            <label for="client-service" class="block text-xs uppercase tracking-wider text-charcoal-muted font-semibold mb-1.5">
+              Servicio de interés
+            </label>
+            <select
+              id="client-service"
+              class="w-full rounded-xl bg-cream border border-gold/30 px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-gold-dark"
+            >
+              <option value="Asesoramiento general / Diagnóstico">Quiero asesoramiento / No estoy segura</option>
+              {allServiceNames.map((srv) => (
+                <option value={srv}>{srv}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="client-day" class="block text-xs uppercase tracking-wider text-charcoal-muted font-semibold mb-1.5">
+                Día preferido
+              </label>
+              <select
+                id="client-day"
+                class="w-full rounded-xl bg-cream border border-gold/30 px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-gold-dark"
+              >
+                <option value="Lo antes posible">Lo antes posible</option>
+                <option value="Martes o Miércoles">Martes o Miércoles</option>
+                <option value="Jueves o Viernes">Jueves o Viernes</option>
+                <option value="Sábado">Sábado</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="client-shift" class="block text-xs uppercase tracking-wider text-charcoal-muted font-semibold mb-1.5">
+                Franja horaria
+              </label>
+              <select
+                id="client-shift"
+                class="w-full rounded-xl bg-cream border border-gold/30 px-4 py-3 text-sm text-charcoal focus:outline-none focus:border-gold-dark"
+              >
+                <option value="Por la mañana (9:30 a 13 hs)">Por la mañana (9:30 a 13 hs)</option>
+                <option value="Por la tarde (13 a 19:30 hs)">Por la tarde (13 a 19:30 hs)</option>
+                <option value="Cualquier horario disponible">Cualquier horario</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="client-notes" class="block text-xs uppercase tracking-wider text-charcoal-muted font-semibold mb-1.5">
+              Comentario adicional (opcional)
+            </label>
+            <textarea
+              id="client-notes"
+              rows="2"
+              placeholder="Cuentame si tienes tintura previa, largo de tu pelo, etc."
+              class="w-full rounded-xl bg-cream border border-gold/30 px-4 py-3 text-sm text-charcoal placeholder:text-charcoal-light focus:outline-none focus:border-gold-dark"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            data-wa-number={siteData.brand.whatsappNumber}
+            class="w-full inline-flex items-center justify-center gap-3 bg-charcoal hover:bg-gold-dark text-cream font-semibold text-xs uppercase tracking-widest py-4 px-6 rounded-full transition-all shadow-soft hover:shadow-gold"
+          >
+            <svg class="w-5 h-5 fill-current text-[#25D366]" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.53 5.856l-1.53 5.588 5.736-1.504c1.685.915 3.613 1.438 5.664 1.438 6.627 0 12-5.373 12-12s-5.373-12-11.4-11.378z"/>
+            </svg>
+            <span>Enviar Solicitud por WhatsApp</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Address, Hours & Map -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Location Box -->
+          <div class="bg-cream-soft rounded-3xl p-6 border border-gold/20 space-y-2">
+            <span class="text-xs uppercase tracking-widest text-gold-dark font-semibold">
+              Ubicación
+            </span>
+            <h3 class="font-serif text-2xl font-semibold text-charcoal">Nuestro Estudio</h3>
+            <p class="text-sm text-charcoal-muted">{siteData.brand.address}</p>
+            <p class="text-xs text-charcoal-light">{siteData.brand.city}</p>
+            <div class="pt-2">
+              <p class="text-xs font-medium text-charcoal">
+                WhatsApp: <span class="text-gold-dark">{siteData.brand.whatsappDisplay}</span>
+              </p>
+              <p class="text-xs font-medium text-charcoal mt-1">
+                Instagram: <span class="text-gold-dark">{siteData.brand.instagram}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Schedule Box -->
+          <div class="bg-cream-soft rounded-3xl p-6 border border-gold/20 space-y-3">
+            <span class="text-xs uppercase tracking-widest text-gold-dark font-semibold">
+              Horarios
+            </span>
+            <h3 class="font-serif text-2xl font-semibold text-charcoal">Días de Atención</h3>
+            <ul class="space-y-2 text-sm">
+              {siteData.schedule.map((row) => (
+                <li class="flex justify-between gap-2 border-b border-cream-warm pb-1.5 last:border-0 last:pb-0">
+                  <span class="text-charcoal font-medium text-xs">{row.days}</span>
+                  <span class="text-charcoal-muted text-xs">{row.hours}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Embedded Map -->
+        <div class="rounded-3xl overflow-hidden shadow-soft border border-gold/25 h-72 sm:h-80 bg-cream-warm">
+          <iframe
+            src={siteData.brand.mapEmbedUrl}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de Pameluquería en Google Maps"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('wa-booking-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const phone = btn?.getAttribute('data-wa-number') || '5491123456789';
+
+    const name = (document.getElementById('client-name') as HTMLInputElement)?.value.trim();
+    const service = (document.getElementById('client-service') as HTMLSelectElement)?.value;
+    const day = (document.getElementById('client-day') as HTMLSelectElement)?.value;
+    const shift = (document.getElementById('client-shift') as HTMLSelectElement)?.value;
+    const notes = (document.getElementById('client-notes') as HTMLTextAreaElement)?.value.trim();
+
+    let message = `¡Hola Pame! ✨${name ? ` Soy *${name}*.` : ''}\nMe gustaría reservar un turno en *Pameluquería*:\n\n`;
+    message += `• *Servicio:* ${service}\n`;
+    message += `• *Día preferido:* ${day}\n`;
+    message += `• *Horario:* ${shift}\n`;
+    if (notes) {
+      message += `• *Comentario:* ${notes}\n`;
+    }
+    message += `\n¡Muchas gracias!`;
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>

@@ -1,0 +1,109 @@
+---
+import { siteData, getWhatsAppLink } from '../data/siteData';
+---
+
+<section
+  id="inicio"
+  class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-gradient-to-b from-blush-light/60 via-cream to-cream"
+>
+  <!-- Decorative subtle circles -->
+  <div
+    class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-blush/30 blur-3xl"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute bottom-10 -left-24 w-80 h-80 rounded-full bg-gold-light/25 blur-3xl"
+    aria-hidden="true"
+  ></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <!-- Left Column: Copy & CTAs -->
+      <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cream-soft border border-gold/30 text-gold-dark text-xs uppercase tracking-[0.18em] font-semibold">
+          <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+          <span>{siteData.hero.badge}</span>
+        </div>
+
+        <h1 class="font-serif text-4xl sm:text-6xl lg:text-[4.25rem] font-medium text-charcoal leading-[1.08] tracking-tight">
+          El arte de resaltar tu <span class="italic font-normal text-gold-dark">belleza natural</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-charcoal-muted max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+          {siteData.hero.subtitle}
+        </p>
+
+        <!-- Primary & Secondary CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+          <a
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-charcoal hover:bg-gold-dark text-cream px-8 py-4 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300 shadow-soft hover:shadow-gold group"
+          >
+            <svg class="w-5 h-5 fill-current text-[#25D366] group-hover:text-cream transition-colors" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.53 5.856l-1.53 5.588 5.736-1.504c1.685.915 3.613 1.438 5.664 1.438 6.627 0 12-5.373 12-12s-5.373-12-11.4-11.378z"/>
+            </svg>
+            <span>{siteData.hero.primaryCta}</span>
+          </a>
+
+          <a
+            href="#servicios"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-cream hover:bg-cream-warm text-charcoal border border-gold/40 px-7 py-4 rounded-full text-sm font-medium tracking-wide transition-colors"
+          >
+            <span>{siteData.hero.secondaryCta}</span>
+            <svg class="w-4 h-4 text-gold-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="pt-6 border-t border-gold/20 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0">
+          {siteData.hero.stats.map((stat) => (
+            <div>
+              <p class="font-serif text-2xl sm:text-3xl font-semibold text-charcoal">{stat.value}</p>
+              <p class="text-xs text-charcoal-muted mt-0.5">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Editorial Arch Image -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          <!-- Gold offset frame -->
+          <div
+            class="absolute inset-0 translate-x-3 translate-y-3 rounded-t-[160px] rounded-b-3xl border border-gold/50 pointer-events-none"
+            aria-hidden="true"
+          ></div>
+
+          <div class="relative rounded-t-[160px] rounded-b-3xl overflow-hidden shadow-soft aspect-[4/5] bg-cream-warm">
+            <img
+              src={siteData.hero.image}
+              alt="Estilismo y cuidado capilar en Pameluquería"
+              class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent"></div>
+          </div>
+
+          <!-- Floating Card -->
+          <div class="absolute -bottom-5 -left-4 sm:-left-6 bg-cream/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl shadow-soft border border-gold/25 max-w-[260px]">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-blush-light border border-gold/40 flex items-center justify-center text-gold-dark shrink-0">
+                ✨
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-wider text-gold-dark font-semibold">Especialidad</p>
+                <p class="font-serif text-lg font-semibold text-charcoal leading-tight">
+                  Balayage & Salud Capilar
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
